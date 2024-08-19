@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+    <title>Vehicle Inspection Checklist</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .navbar {
+            background-color: #343a40;
+            height: 50px;
+        }
+        .navbar-brand {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        h3 {
+            background-color: #d1e7dd;
+            padding: 5px;
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 10px;
+            margin-left: 3px;
+            margin-right: 3px;
+            cursor: pointer;
+        }
+        h4 {
+            background-color: #f8d7da;
+            padding: 5px;
+            margin-left: 10px;
+            margin-right: 10px;
+            border-radius: 10px; 
+        }
+        ul {
+            padding-left: 15px;
+            margin-left: 15px;
+            list-style-type: none;
+        }
+        ul li {
+            margin-bottom: 5px;
+            border-radius: 10px; 
+        }
+        .ullast {
+            margin-bottom: 3px;
+        }
+        .highlight {
+            background-color: #dbeafe;
+            padding: 2px;
+        }
+        .container-responsive {
+            max-width: 70%;
+            padding: 15px;
+            margin: auto;
+        }
+        .FrontoftheCar, .Interior, .SideoftheCar, .RearoftheCar, .Miscellaneous {
+            border: 5px solid black;
+            border-radius: 10px;
+            margin-bottom: 5px;
+        }
+        .carousel-control-next, .carousel-control-prev {
+            color: #33333300;
+        }
+
+        .btn-secondary {
+            margin-bottom: 5px;
+            margin-left: 20px;
+            border-radius: 10px;
+        }
+        .custom-tooltip {
+            position: absolute;
+            background-color: #333;
+            color: #fff;
+            padding: 5px 10px;
+            border-radius: 4px;
+            display: none;
+            white-space: nowrap;
+            z-index: 1000;
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark">
+    <a class="navbar-brand" href="#">
+        <img src="/Assets/QASWHITELOGO.png" alt="Logo" width="130.5" height="50">
+    </a>
+</nav>
+
+<div id="tooltip" class="custom-tooltip"></div>
+
+<div class="container-responsive">
+    <div class="FrontoftheCar">
+        <h3 data-toggle="collapse" data-target="#collapseFrontOfCar" aria-expanded="true" aria-controls="collapseFrontOfCar" alt="Open/Close" title="Open/Close">Front of the Car</h3>
+        <div id="collapseFrontOfCar" class="collapse show">
+            <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#modalPictureFrontofthecar">View Front of Car Pictures</button>
+
+            <h4>Front Bumper</h4>
+            <ul>
+                <li>Check for broken plastic.</li>
+                <li>Look for items screwed into the bumper.</li>
+                <li><span class="highlight">Front Valance:</span></li>
+                <li>Verify if missing or broken.</li>
+            </ul>
+
+            <h4>Grille</h4>
+            <ul>
+                <li>Check for cracks.</li>
+                <li>Look for chips.</li>
+                <li><span class="highlight">Headlights:</span></li>
+                <li>Inspect general condition: Verify if missing or broken.</li>
+            </ul>
+
+            <h4>Windshield</h4>
+            <ul class="ullast">
+                <li>Check both inside and outside surfaces for damage.</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="Interior">
+        <h3 data-toggle="collapse" data-target="#collapseInterior" aria-expanded="false" aria-controls="collapseInterior" alt="Open/Close" title="Open/Close">Interior</h3>
+        <div id="collapseInterior" class="collapse">
+            <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#modalPictureinterior">View Interior Pictures</button>
+
+            <h4>Door Interior</h4>
+            <ul>
+                <li>Inspect the step for damage, scratches, or rust.</li>
+            </ul>
+
+            <h4>Driver's Seat</h4>
+            <ul class="ullast">
+                <li>Pay special attention to wear, particularly on the sides.</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="SideoftheCar">
+        <h3 data-toggle="collapse" data-target="#collapseSideOfCar" aria-expanded="false" aria-controls="collapseSideOfCar" alt="Open/Close" title="Open/Close">Side of the Car</h3>
+        <div id="collapseSideOfCar" class="collapse">
+            <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#modalSideOfCar">View Side of the Car Pictures</button>
+            <h4>Fender</h4>
+            <ul>
+                <li>Inspect for overall condition.</li>
+                <li>Ensure it's not an aftermarket plastic replacement.</li>
+            </ul>
+
+            <h4>Mirrors</h4>
+            <ul>
+                <li>Verify they are not cracked or broken.</li>
+                <li>Ensure they are movable; check for potential breakage.</li>
+            </ul>
+
+            <h4>Side Step</h4>
+            <ul>
+                <li>Inspect the step for damage, scratches, or rust.</li>
+            </ul>
+
+            <h4>Quarter Panel</h4>
+            <ul>
+                <li>Look for sandblasting damage from big wheels.</li>
+                <li>Check for scratches and chips.</li>
+            </ul>
+
+            <h4>Mudflaps</h4>
+            <ul>
+                <li>Check for proper installation.</li>
+                <li>Look for holes where they might be secured.</li>
+            </ul>
+
+            <h4>Roof</h4>
+            <ul class="ullast">
+                <li>Inspect for scratches or holes.</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="RearoftheCar">
+        <h3 data-toggle="collapse" data-target="#collapseRearOfCar" aria-expanded="false" aria-controls="collapseRearOfCar" alt="Open/Close" title="Open/Close">Rear of the Car</h3>
+        <div id="collapseRearOfCar" class="collapse">
+        <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#modalRearOfCar">View Rear of the Car Pictures</button>
+            <h4>Rear Bumper</h4>
+            <ul class="ullast">
+                <li>Inspect for usual damage such as scratches, missing lights, and dents.</li>
+                <li><span class="highlight">Taillights:</span></li>
+                <li>Look for usual damage and check functionality.</li>
+                <li><span class="highlight">Tailgate:</span></li>
+                <li>Check for common damages. Ensure it opens properly. Inspect handles for scratches.</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="Miscellaneous">
+        <h3 data-toggle="collapse" data-target="#collapseMiscellaneous" aria-expanded="false" aria-controls="collapseMiscellaneous" alt="Open/Close" title="Open/Close">Miscellaneous</h3>
+        <div id="collapseMiscellaneous" class="collapse">
+        <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#modalMiscellaneous">View Miscellaneous Pictures</button>
+            <h4>Frame</h4>
+            <ul>
+                <li>Check the front and back frames for any rust.</li>
+            </ul>
+
+            <h4>Aftermarket</h4>
+            <ul>
+                <li>Remove all aftermarket lights, or addons.</li>
+                <li>FOR AN OFFROADER: We will keep those addons (if in good condition). People want those. On a normal F150 or other Pickup, we will remove them.</li>
+            </ul>
+
+            <h4>License Plate</h4>
+            <ul>
+                <li>Ensure removal of the license plate.</li>
+            </ul>
+
+            <h4>Aftermarket Stickers</h4>
+            <ul class="ullast">
+                <li>Remove any aftermarket stickers.</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalPictureFrontofthecar" tabindex="-1" aria-labelledby="modalPictureLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalPictureLabel">Front of the Car</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="carouselFrontOfCar" class="carousel slide" data-ride="carousel">
+                    <div class="carousel-indicators">
+                        <button type="button" data-bs-target="#carouselFrontOfCar" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                        <button type="button" data-bs-target="#carouselFrontOfCar" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                        <button type="button" data-bs-target="#carouselFrontOfCar" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                    </div>
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <img src="/Assets/badfrontbumper.jpeg" class="d-block w-100" alt="Front of the Car - Image 1">
+                            <div class="carousel-caption d-none d-md-block">
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                            <img src="/Assets/Caulking.jpeg" class="d-block w-100" alt="Front of the Car - Image 2">
+                            <div class="carousel-caption d-none d-md-block">
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                            <img src="/Assets/5thwheel.jpeg" class="d-block w-100" alt="Front of the Car - Image 3">
+                            <div class="carousel-caption d-none d-md-block">
+                            </div>
+                        </div>
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselFrontOfCar" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselFrontOfCar" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- You can replicate the above structure for other sections like Interior, Side of the Car, etc. -->
+
+<!-- Original Modals for Images 
+<div class="modal fade" id="modalPictureFrontofthecar" tabindex="-1" aria-labelledby="modalPictureLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalPictureLabel">Front of the Car</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <img src="/Assets/badfrontbumper.jpeg" class="img-fluid" alt="Front of the Car">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+-->
+
+<div class="modal fade" id="modalPictureinterior" tabindex="-1" aria-labelledby="modalPictureLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalPictureLabel">Interior</h5>
+                <button type="button" class="close" data-dismiss="modal-interior" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <img src="/Assets/DriverDoorScratches.jpeg" class="img-fluid" alt="Interior">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalSideOfCar" tabindex="-1" aria-labelledby="modalPictureLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalPictureLabel">Front of the Car</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <img src="/Assets/badfrontbumper.jpeg" class="img-fluid" alt="Front of the Car">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalRearOfCar" tabindex="-1" aria-labelledby="modalPictureLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalPictureLabel">Front of the Car</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <img src="/Assets/badfrontbumper.jpeg" class="img-fluid" alt="Front of the Car">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalMiscellaneous" tabindex="-1" aria-labelledby="modalPictureLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalPictureLabel">Front of the Car</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <img src="/Assets/badfrontbumper.jpeg" class="img-fluid" alt="Front of the Car">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const headings = document.querySelectorAll('h3');
+    const tooltip = document.getElementById('tooltip');
+
+    headings.forEach(h3 => {
+        h3.addEventListener('mouseenter', function(event) {
+            const title = h3.getAttribute('title');
+            if (title) {
+                setTimeout(() => {
+                    tooltip.innerText = title;
+                    tooltip.style.display = 'block';
+                    tooltip.style.left = `${event.pageX + 10}px`;
+                    tooltip.style.top = `${event.pageY + 10}px`;
+                }, 1000); 
+
+                h3.removeAttribute('title'); 
+            }
+        });
+
+        h3.addEventListener('mousemove', function(event) {
+            tooltip.style.left = `${event.pageX + 10}px`;
+            tooltip.style.top = `${event.pageY + 10}px`;
+        });
+
+        h3.addEventListener('mouseleave', function() {
+            tooltip.style.display = 'none';
+            h3.setAttribute('title', tooltip.innerText); // Restore the title attribute
+        });
+    });
+</script>
+
+</body>
+</html>

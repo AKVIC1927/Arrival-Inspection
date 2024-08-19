@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <title>Interactive Flowchart</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #bcd5ffba;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .flowchart {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            max-width: 800px;
+            margin: auto;
+        }
+
+        .step-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            margin-bottom: 20px; /* Adjust spacing between steps */
+        }
+
+        .step, .details {
+            margin: 10px;
+            padding: 15px;
+            border: 2px solid #32582b;
+            border-radius: 8px;
+            width: 90%;
+            text-align: center;
+            background-color: #689f5e;
+            transition: background-color 0.3s ease, transform 0.5s ease, font-weight 0.5s ease, border-radius 0.5s ease;
+        }
+
+        .step:hover {
+            background-color: #588750;
+            transform: scale(1.05); /* Adds a slight scaling effect */
+            border-radius: 16px; /* Morphing effect */
+        }
+
+        .details {
+            display: none; /* Initially hide details */
+            padding: 20px; /* Consistent padding inside details */
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background-color: #fafafa;
+            width: 90%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .details.show {
+            display: block; /* Show details when toggled */
+        }
+
+        .details p,
+        .details li {
+            text-align: left; /* Align text to the left */
+            margin-left: 20px; /* Set left margin for paragraphs and lists */
+        }
+
+        .details button {
+            display: block;
+            margin: 20px auto; /* Center buttons horizontally */
+            text-align: center; /* Center text within buttons */
+        }
+
+        .arrow {
+            margin: 10px;
+            font-size: 24px;
+            color: #32582b;
+            text-align: center; /* Center arrows */
+        }
+
+        .decision {
+            display: flex;
+            justify-content: center; /* Center the decision buttons */
+            width: 100%;
+        }
+
+        .decision button {
+            padding: 10px;
+            margin: 5px;
+            cursor: pointer;
+        }
+
+        .step-container.active .step {
+            background-color: #6fbd73; /* Different color when active */
+            transform: scale(1.05);
+            border-radius: 16px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="flowchart" onclick="showAllLocations(event)">
+    <div class="step-container">
+        <div class="step" id="step1" onclick="toggleDetails('step1-details')">① Car arrives in RECEPTION AREA</div>
+        <div id="step1-details" class="details">
+            <p>Car arrives in the reception area and awaits processing.</p>
+        </div>
+    </div>
+    <div class="arrow">↓</div>
+    
+    <div class="step-container">
+        <div class="step" id="step2" onclick="toggleDetails('step2-details')">② Put unit as arrived on the platform</div>
+        <div id="step2-details" class="details">
+            <p>Mark the unit as arrived in the transfer window.</p>
+            <li>If transfer is not open, click on <span class="highlight">PICKUP</span></li>
+        </div>
+    </div>
+    <div class="arrow">↓</div>    
+    <div class="step-container">
+        <div class="step" id="step3" onclick="toggleDetails('step3-details')">③ Mark information on windows</div>
+        <div id="step3-details" class="details">
+            <p>On front window, Write last 3 digits of VIN.</p>
+            <p>On Driver window, Write the Market</p>
+            <p>For Boston: <button onclick="toggleStep4('boston', event)"><span class="mrkt">CH</span></button> (Car Heroes)</p>
+            <p>For Michigan: <button onclick="toggleStep4('michigan', event)"><span class="mrkt">MI</span></button></p>
+            <p>For New York: <button onclick="toggleStep4('newyork', event)"><span class="mrkt">NY</span></button></p>
+            <li>If the unit doesn't have a market, write the buyer's name</li>
+        </div>
+    </div>
+    <div class="arrow">↓</div>
+
+    <!-- Step 4 for Michigan -->
+    <div class="step-container" id="step4-michigan">
+        <div class="step" onclick="toggleDetails('step4-michigan-details')"><span>&#8470;</span> 4.a) Michigan</div>
+        <div id="step4-michigan-details" class="details">
+            <p>In V.I., enter the tire label and VIN sticker information for the car.</p>
+            <button onclick="scrollToStep('michigan-pictures')">Upload the first 3 pictures</button>
+            <div id="michigan-pictures" class="details">
+                <p>Upload the first three pictures on the platform.</p>
+            </div>
+            <div class="arrow">↓</div>
+            <div class="step" onclick="toggleDetails('michigan-inspection')">⑤ Finish inspection</div>
+            <div id="michigan-inspection" class="details">
+                <p>Complete the inspection process for the Michigan car.</p>
+            </div>
+            <div class="arrow">↓</div>
+            <div class="step" onclick="toggleDetails('michigan-recall')">⑥ Verify Recall</div>
+            <div id="michigan-recall" class="details">
+                <p><span>&#128269</span> Is there a Recall?</p>
+                <div class="decision">
+                    <button onclick="toggleRecallDecision('michigan', 'yes')">Yes</button>
+                    <button onclick="toggleRecallDecision('michigan', 'no')">No</button>
+                </div>
+                <div id="michigan-recall-yes" class="details">
+                    <p>Proceed with the recall verification:</p>
+                    <div class="decision">
+                        <button onclick="toggleRemedy('michigan', 'yes')">Remedy Available</button>
+                        <button onclick="toggleRemedy('michigan', 'no')">No Remedy Available</button>
+                    </div>
+                    <div id="michigan-remedy-yes" class="details">
+                        <p>Remedy is available. Proceed with the remedy and move the car to the Recall Section.</p>
+                    </div>
+                    <div id="michigan-remedy-no" class="details">
+                        <p>No remedy available. Log this and proceed with the next steps.</p>
+                    </div>
+                </div>
+                <div id="michigan-recall-no" class="details">
+                    <p>No recall needed, proceed with the next step.</p>
+                </div>
+            </div>
+            <div class="arrow">↓</div>
+            <div class="step">CAR INSPECTION DONE</div>
+            <div id="michigan-done" class="details">
+                <p>Move the car to the appropriate section based on inspection results.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Step 4 for Boston -->
+    <div class="step-container" id="step4-boston">
+        <div class="step" onclick="toggleDetails('step4-boston-details')"><span>&#8470;</span> 4.b) Boston</div>
+        <div id="step4-boston-details" class="details">
+            <p>In V.I., enter the tire label and VIN sticker information for the car.</p>
+            <button onclick="scrollToStep('boston-pictures')">Upload the first 3 pictures</button>
+            <div id="boston-pictures" class="details">
+                <p>Upload the first three pictures on the platform.</p>
+            </div>
+            <div class="arrow">↓</div>
+            <div class="step" onclick="toggleDetails('boston-inspection')">⑤ Finish inspection</div>
+            <div id="boston-inspection" class="details">
+                <p>Complete the inspection process for the Boston car.</p>
+            </div>
+            <div class="arrow">↓</div>
+            <div class="step" onclick="toggleDetails('boston-recall')">⑥ Verify Recall</div>
+            <div id="boston-recall" class="details">
+                <p>If there is a recall, verify the remedy.</p>
+                <div class="decision">
+                    <button onclick="toggleRecallDecision('boston', 'yes')">Yes</button>
+                    <button onclick="toggleRecallDecision('boston', 'no')">No</button>
+                </div>
+                <div id="boston-recall-yes" class="details">
+                    <p>Proceed with the recall remedy. Move the car to the Recall Section.</p>
+                </div>
+                <div id="boston-recall-no" class="details">
+                    <p>No recall needed, proceed with the next step.</p>
+                </div>
+            </div>
+            <div class="arrow">↓</div>
+            <div class="step">CAR INSPECTION DONE</div>
+            <div id="boston-done" class="details">
+                <p>Move the car to the appropriate section based on inspection results.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Step 4 for New York -->
+    <div class="step-container" id="step4-newyork">
+        <div class="step" onclick="toggleDetails('step4-newyork-details')"><span>&#8470;</span> 4.c) New York</div>
+        <div id="step4-newyork-details" class="details">
+            <p>In V.I., enter the tire label and VIN sticker information for the car.</p>
+            <button onclick="scrollToStep('newyork-pictures')">Upload the first 3 pictures</button>
+            <div id="newyork-pictures" class="details">
+                <p>Upload the first three pictures on the platform.</p>
+            </div>
+            <div class="arrow">↓</div>
+            <div class="step" onclick="toggleDetails('newyork-inspection')">⑤ Finish inspection</div>
+            <div id="newyork-inspection" class="details">
+                <p>Complete the inspection process for the New York car.</p>
+            </div>
+            <div class="arrow">↓</div>
+            <div class="step" onclick="toggleDetails('newyork-recall')">⑥ Verify Recall</div>
+            <div id="newyork-recall" class="details">
+                <p>If there is a recall, verify the remedy.</p>
+                <div class="decision">
+                    <button onclick="toggleRecallDecision('newyork', 'yes')">Yes</button>
+                    <button onclick="toggleRecallDecision('newyork', 'no')">No</button>
+                </div>
+                <div id="newyork-recall-yes" class="details">
+                    <p>Proceed with the recall remedy. Move the car to the Recall Section.</p>
+                </div>
+                <div id="newyork-recall-no" class="details">
+                    <p>No recall needed, proceed with the next step.</p>
+                </div>
+            </div>
+            <div class="arrow">↓</div>
+            <div class="step">CAR INSPECTION DONE</div>
+            <div id="newyork-done" class="details">
+                <p>Move the car to the appropriate section based on inspection results.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function scrollToStep(stepId) {
+    const element = document.getElementById(stepId);
+    element.scrollIntoView({ behavior: 'smooth' });
+}
+
+function toggleDetails(id) {
+    var details = document.getElementById(id);
+    var step = document.getElementById(id.replace('-details', ''));
+
+    if (details.classList.contains('show')) {
+        details.classList.remove('show');
+        details.style.display = 'none';
+        step.style.fontWeight = 'normal'; // Revert style when details are hidden
+    } else {
+        details.classList.add('show');
+        details.style.display = 'block'; // Ensure block is applied for stacking
+        step.style.fontWeight = 'bold'; // Change style when details are shown
+    }
+}
+
+function toggleStep4(step, event) {
+    event.stopPropagation(); // Prevent triggering showAllLocations when clicking buttons
+
+    const steps = ['michigan', 'boston', 'newyork'];
+    const stepContainer = document.getElementById(`step4-${step}`);
+
+    if (stepContainer.style.display === 'block') {
+        // If already displayed, hide it and show all locations
+        showAllLocations();
+    } else {
+        // Hide all locations first
+        steps.forEach(s => {
+            const container = document.getElementById(`step4-${s}`);
+            container.style.display = 'none';
+        });
+
+        // Show the selected location
+        stepContainer.style.display = 'block';
+    }
+}
+
+function showAllLocations(event) {
+    // If event is defined, check if click was inside a step or details container
+    if (event) {
+        const isClickInsideStep = event.target.closest('.step-container') !== null;
+        if (isClickInsideStep) return;
+    }
+
+    const steps = ['michigan', 'boston', 'newyork'];
+    steps.forEach(s => {
+        const container = document.getElementById(`step4-${s}`);
+        container.style.display = 'none';
+    });
+}
+
+function toggleRecallDecision(step, decision) {
+    const yesElement = document.getElementById(`${step}-recall-yes`);
+    const noElement = document.getElementById(`${step}-recall-no`);
+
+    if (decision === 'yes') {
+        yesElement.classList.add('show');
+        yesElement.style.display = 'block';
+        noElement.classList.remove('show');
+        noElement.style.display = 'none';
+    } else {
+        noElement.classList.add('show');
+        noElement.style.display = 'block';
+        yesElement.classList.remove('show');
+        yesElement.style.display = 'none';
+    }
+}
+
+function toggleRemedy(step, remedy) {
+    const remedyYes = document.getElementById(`${step}-remedy-yes`);
+    const remedyNo = document.getElementById(`${step}-remedy-no`);
+
+    if (remedy === 'yes') {
+        remedyYes.classList.add('show');
+        remedyYes.style.display = 'block';
+        remedyNo.classList.remove('show');
+        remedyNo.style.display = 'none';
+    } else {
+        remedyNo.classList.add('show');
+        remedyNo.style.display = 'block';
+        remedyYes.classList.remove('show');
+        remedyYes.style.display = 'none';
+    }
+}
+</script>
+
+</body>
+</html>
