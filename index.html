@@ -6,12 +6,11 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-<!-- Bootstrap JS -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+    <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+
     <title>Vehicle Inspection Checklist</title>
     <style>
         body {
@@ -23,8 +22,7 @@
         }
         .navbar-brand {
             position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
+        
         }
         h3 {
             background-color: #d1e7dd;
@@ -59,7 +57,7 @@
             padding: 2px;
         }
         .container-responsive {
-            max-width: 70%;
+            max-width: -webkit-fill-available;
             padding: 15px;
             margin: auto;
         }
@@ -87,19 +85,119 @@
             white-space: nowrap;
             z-index: 1000;
         }
+        .hotspot-icon {
+            width: 4px;
+            height: 4px;
+            background: none; 
+            border: none; 
+            cursor: pointer;
+            padding: 0; 
+        }
     </style>
 </head>
 <body>
 
 <nav class="navbar navbar-expand-lg navbar-dark">
     <a class="navbar-brand" href="#">
-        <img src="/Assets/QASWHITELOGO.png" alt="Logo" width="130.5" height="50">
+        <img src="QASWHITELOGO.png" alt="Logo" width="130.5" height="50">
     </a>
+    <div class="ml-auto">
+        <a href="ArrivalSteps.html" class="btn btn-secondary">Go to Arrival Checkpoints</a>
+    </div>
 </nav>
-
 <div id="tooltip" class="custom-tooltip"></div>
 
 <div class="container-responsive">
+
+<div class="container-responsive">
+    <div class="TruckAnatomy">
+        <h3>Truck Anatomy</h3>
+        <model-viewer 
+        src="ford_f150_raptor.glb" 
+        alt="A 3D model of a Ford F150 Raptor" 
+        camera-controls
+        inputSensitivity
+        shadow-intensity="1"
+        tone-mapping="aces" 
+        style="width: 100%; height: 600px;"
+        ar
+        ar-modes="webxr scene-viewer quick-look"
+        ar-scale="auto"
+        ar-placement="floor"
+        field-of-view="35deg"
+        camera-orbit="-25deg 75deg 0deg"
+        min-camera-orbit="-180deg 0deg auto" 
+        max-camera-orbit="180deg 180deg auto">
+        
+
+  <button slot="hotspot-Hood" class="hotspot-icon" data-position="0.111m 0.750m 6.350m" data-normal="0m 0m 1m" class="annotation" onclick="showDetails('Hood')">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="red" width="14px" height="14px">
+      <circle cx="12" cy="12" r="10"/>
+    </svg>
+  </button>
+
+  <button slot="hotspot-Door Panels" class="hotspot-icon" data-position="-2.862m -0.336m 1.357m" data-normal="0m 0m 0.5m" class="annotation" onclick="showDetails('Door Panels')">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="red" width="14px" height="14px">
+        <circle cx="12" cy="12" r="10"/>
+      </svg>  
+  </button>
+
+  <button slot="hotspot-Grille" class="hotspot-icon" data-position=" -0.077m -0.411m 7.449m" data-normal="0m 0m 1m" class="annotation" onclick="showDetails('Grille')">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="red" width="14px" height="14px">
+        <circle cx="12" cy="12" r="10"/>
+      </svg>  
+  </button>
+
+  <button slot="hotspot-mirror" class="hotspot-icon" data-position="2.959m 1.137m 2.658m" data-normal="0m 0m 1m" class="annotation" onclick="showDetails('Mirror')">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="red" width="14px" height="14px">
+        <circle cx="12" cy="12" r="10"/>
+      </svg>  
+  </button>
+  <button slot="hotspot-Front Fenders" class="hotspot-icon" data-position="2.889m 0.30120m 5.2090m" data-normal="0m 0m 1m" class="annotation" onclick="showDetails('Front Fenders')">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="red" width="14px" height="14px">
+      <circle cx="12" cy="12" r="10"/>
+    </svg>
+  </button>
+
+  <button slot="hotspot-Rear Fenders" class="hotspot-icon" data-position="2.889m 0.30120m -4.397m" data-normal="0m 0m 0.5m" class="annotation" onclick="showDetails('Rear Fenders')">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="red" width="14px" height="14px">
+        <circle cx="12" cy="12" r="10"/>
+      </svg>  
+  </button>
+
+  <button slot="hotspot-Bumper Trim" class="hotspot-icon" data-position=" 1.1292m -1.308m -7.738m" data-normal="0m 0m 1m" class="annotation" onclick="showDetails('Bumper Trim')">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="red" width="14px" height="14px">
+        <circle cx="12" cy="12" r="10"/>
+      </svg>  
+  </button>
+ 
+  <button slot="hotspot-Bumper" class="hotspot-icon" data-position="-1.6792m -1.308m -7.738m" data-normal="0m 0m 1m" class="annotation" onclick="showDetails('Bumper')">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="red" width="14px" height="14px">
+        <circle cx="12" cy="12" r="10"/>
+      </svg>  
+  </button>
+
+  <button slot="hotspot-Tailight" class="hotspot-icon" data-position="2.7118m 0.17832m -7.395m" data-normal="0m 0m 1m" class="annotation" onclick="showDetails('Tailight')">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="red" width="14px" height="14px">
+        <circle cx="12" cy="12" r="10"/>
+      </svg>  
+  </button> 
+
+  <button slot="hotspot-Tailgate" class="hotspot-icon" data-position="0.06849m 1.137m -7.5043m" data-normal="0m 0m 1m" class="annotation" onclick="showDetails('Tailgate')">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="red" width="14px" height="14px">
+        <circle cx="12" cy="12" r="10"/>
+      </svg>  
+  </button> 
+
+  <button slot="hotspot-Windshield" class="hotspot-icon" data-position="-0.4338m 1.4763m 3.211m" data-normal="0m 0m 1m" class="annotation" onclick="showDetails('Windshield')">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="red" width="14px" height="14px">
+        <circle cx="12" cy="12" r="10"/>
+      </svg>  
+  </button>
+                        
+     </div>
+</div>
+
     <div class="FrontoftheCar">
         <h3 data-toggle="collapse" data-target="#collapseFrontOfCar" aria-expanded="true" aria-controls="collapseFrontOfCar" alt="Open/Close" title="Open/Close">Front of the Car</h3>
         <div id="collapseFrontOfCar" class="collapse show">
@@ -228,6 +326,27 @@
     </div>
 </div>
 
+<div class="modal fade" id="detailModal" tabindex="-1" aria-labelledby="detailModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="detailModalLabel">Part Details</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="modalContent">
+            <div name="Hood">
+               <li>The hood is the hinged cover that rests odfdfdfdfdfdfdfdsfsdfsdfsdfsver the engine bay of a front-engine vehicle.</li>
+            </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="modal fade" id="modalPictureFrontofthecar" tabindex="-1" aria-labelledby="modalPictureLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -246,17 +365,17 @@
                     </div>
                     <div class="carousel-inner">
                         <div class="carousel-item active">
-                            <img src="/Assets/badfrontbumper.jpeg" class="d-block w-100" alt="Front of the Car - Image 1">
+                            <img src="badfrontbumper.jpeg" class="d-block w-100" alt="Front of the Car - Image 1">
                             <div class="carousel-caption d-none d-md-block">
                             </div>
                         </div>
                         <div class="carousel-item">
-                            <img src="/Assets/Caulking.jpeg" class="d-block w-100" alt="Front of the Car - Image 2">
+                            <img src="Caulking.jpeg" class="d-block w-100" alt="Front of the Car - Image 2">
                             <div class="carousel-caption d-none d-md-block">
                             </div>
                         </div>
                         <div class="carousel-item">
-                            <img src="/Assets/5thwheel.jpeg" class="d-block w-100" alt="Front of the Car - Image 3">
+                            <img src="5thwheel.jpeg" class="d-block w-100" alt="Front of the Car - Image 3">
                             <div class="carousel-caption d-none d-md-block">
                             </div>
                         </div>
@@ -278,29 +397,6 @@
     </div>
 </div>
 
-<!-- You can replicate the above structure for other sections like Interior, Side of the Car, etc. -->
-
-<!-- Original Modals for Images 
-<div class="modal fade" id="modalPictureFrontofthecar" tabindex="-1" aria-labelledby="modalPictureLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="modalPictureLabel">Front of the Car</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <img src="/Assets/badfrontbumper.jpeg" class="img-fluid" alt="Front of the Car">
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
--->
-
 <div class="modal fade" id="modalPictureinterior" tabindex="-1" aria-labelledby="modalPictureLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -311,7 +407,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <img src="/Assets/DriverDoorScratches.jpeg" class="img-fluid" alt="Interior">
+                <img src="DriverDoorScratches.jpeg" class="img-fluid" alt="Interior">
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -330,7 +426,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <img src="/Assets/badfrontbumper.jpeg" class="img-fluid" alt="Front of the Car">
+                <img src="badfrontbumper.jpeg" class="img-fluid" alt="Front of the Car">
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -349,7 +445,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <img src="/Assets/badfrontbumper.jpeg" class="img-fluid" alt="Front of the Car">
+                <img src="badfrontbumper.jpeg" class="img-fluid" alt="Front of the Car">
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -368,7 +464,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <img src="/Assets/badfrontbumper.jpeg" class="img-fluid" alt="Front of the Car">
+                <img src="badfrontbumper.jpeg" class="img-fluid" alt="Front of the Car">
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -406,6 +502,54 @@
             h3.setAttribute('title', tooltip.innerText); // Restore the title attribute
         });
     });
+
+
+    function showDetails(partName) {
+    let content = '';
+    switch(partName) {
+        case 'Hood':
+            content = '<p>The hood is the hinged cover that rests over the engine bay of a front-engine vehicle.</p>';
+            break;
+        case 'Door Panels':
+            content = '<p>The door panels are the interior coverings of a vehicle’s doors, providing aesthetic appeal and housing for various components like controls and storage compartments.</p>';
+            break;
+        case 'Grille':
+            content = '<p>The grille is located at the front of the vehicle, typically between the headlights and the bumper, and allows air to enter the engine compartment.</p>';
+            break;
+        case 'Mirror':
+            content = '<p>The mirrors are essential for visibility and should be intact and functional.</p>';
+            break;
+        case 'Front Fenders':
+            content = '<p>The front fenders are the panels on either side of the car, positioned between the front door and the bumper, protecting the wheels and preventing road debris from being thrown up.</p>';
+            break;
+        case 'Rear Fenders':
+            content = '<p>The rear fenders serve a similar purpose as the front fenders, protecting the rear wheels and surrounding components from road debris.</p>';
+            break;
+        case 'Bumper Trim':
+            content = '<p>The bumper trim is the finishing strip that often covers the top of the bumper, adding to the car’s aesthetic and providing minor protection.</p>';
+            break;
+        case 'Bumper':
+            content = '<p>The bumper is a structure attached to or integrated with the front and rear ends of a motor vehicle, designed to absorb impact in a collision.</p>';
+            break;
+        case 'Tailight':
+            content = '<p>The taillights are the red lights located at the rear of the vehicle, crucial for signaling and ensuring the vehicle is visible at night.</p>';
+            break;
+        case 'Tailgate':
+            content = '<p>The tailgate is the rear door of a pickup truck or SUV, often hinged at the bottom to open downward, providing access to the cargo area.</p>';
+            break;
+        case 'Windshield':
+            content = '<p>The windshield is the front window of the vehicle, providing visibility while protecting occupants from wind, debris, and the elements.</p>';
+            break;
+        default:
+            content = '<p>Details not available.</p>';
+            break;
+    }
+    $('#modalContent').html(content);
+    $('#detailModal').modal('show');
+}
+
+
+
 </script>
 
 </body>
